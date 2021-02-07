@@ -7,6 +7,7 @@ Write your code in this editor and press "Run" button to compile and execute it.
 *******************************************************************************/
 
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -57,6 +58,7 @@ int main()
     
     int Matriz_Completa[Maximal_Spalte][Maximal_Reihe];
     
+    string Case_Inputs[Num_Cases] = {"(A+B)·C", "(A+C)·D", " ~B+A+D"}; 
     
     int Input_A;
     int Input_B;
@@ -150,7 +152,7 @@ int main()
                 Setting_Inputs(Counter_Intern, &Input_A, &Input_B, &Input_C, &Input_D, &Not_Input_A, &Not_Input_B, &Not_Input_C, &Not_Input_D);
                 Extra_Count_Z3++;
                 
-                if((Input_A || Input_B) || Input_D)
+                if((Input_A || Not_Input_B) || Input_D)
                 {
                     Matriz_Completa[Counter_Extern][Counter_Intern] = 1;
                     Num_Correct_Cases[2] = Num_Correct_Cases[2] +1; 
@@ -168,15 +170,15 @@ int main()
     }
     
     //Printing Matrix
-    cout << "CaseNumber   Condition1   Condition2   Condition3"<< endl; 
+    cout << "              A B C        A D C       ~A ~B ~C"<< endl; 
    if (External_External_Count == Num_Cases )
         {
             for (int i = 0; i < Maximal_Spalte; i++ )
             {
-                cout << "Case " << i+1 << "           ";
+                cout << Case_Inputs[i] << "         ";
                 for (int j = 0; j < Maximal_Reihe; j++ )
                 {
-                    cout << Matriz_Completa[i][j];
+                    cout << Matriz_Completa[i][j]<<"            ";
                 }
                 cout << endl;
             }
@@ -185,7 +187,7 @@ int main()
     
     for (int i = 0; i< Num_Cases; i++)
     {
-        cout << "Case "<<Cases[i] << ": has "<<Num_Correct_Cases[i] <<" Correct Answers"<<endl;
+        cout << "Case "<<Case_Inputs[i] << ": Fulfill "<<Num_Correct_Cases[i] <<" Conditions"<<endl;
         
     }
     return 0;
@@ -234,7 +236,7 @@ void Setting_Inputs(int Boolean_Case, int *Input_A, int *Input_B, int *Input_C, 
         case 2:
             
             *Not_Input_A = 1;
-            *Not_Input_D = 1;
+            *Not_Input_B = 1;
             *Not_Input_C = 1;
         
         break;
